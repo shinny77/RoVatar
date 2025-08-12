@@ -1,0 +1,130 @@
+-- @ScriptType: ModuleScript
+
+local Tween = game:GetService("TweenService")
+local RS = game:GetService("ReplicatedStorage")
+local CS = game:GetService("CollectionService")
+
+local Modules = RS.Modules
+local misc = require(Modules.Packages.Misc)
+
+local Replicate = RS.Remotes.Replicate
+
+local SpinBlade = script.Boomerang
+local Costs = require(script.Parent.Parent.Costs)
+local Constants = require(RS.Modules.Custom.Constants)
+
+local BoomerangDamageRange = Costs.BoomerangDamageRange
+local BoomerangXP = Costs.BoomerangXP
+
+local function ToggleBoomerang(enable, character)
+	if enable then
+		local Boomerang = character:FindFirstChild("Boomerang")
+		if Boomerang then
+			Boomerang.Handle.Weapon.H.Transparency = 0
+			Boomerang.Handle.Weapon.J.Transparency = 0
+		end
+	else
+		local Boomerang = character:FindFirstChild("Boomerang")
+		if Boomerang then
+			Boomerang.Handle.Weapon.H.Transparency = 1
+			Boomerang.Handle.Weapon.J.Transparency = 1
+		end
+	end
+end
+
+return function(plr, direction, mouseaim)
+
+	local OnHit = false
+	local Alive = true
+	
+	local Char = plr.Character
+	local hrp = Char:WaitForChild("HumanoidRootPart")
+	local Torso = Char:WaitForChild("UpperTorso")
+	
+	local Hits = {}
+
+	local infNum = math.huge
+	
+	local beam = SpinBlade:Clone()
+	beam.Anchored = false
+	beam.CanCollide = false
+
+	beam.CFrame = CFrame.new((hrp.CFrame*CFrame.new(0, 1, -1)).Position, mouseaim)
+	beam.Parent = workspace
+
+	local BV = Instance.new("BodyVelocity", beam)
+	BV.MaxForce = Vector3.new(
+		infNum,
+		infNum,
+		infNum
+	)
+	local DistanceF = math.clamp((mouseaim - hrp.Position).Magnitude, 40, 80)
+	BV.Velocity = CFrame.new(hrp.Position, mouseaim).LookVector * DistanceF
+	spawn(function()
+		ToggleBoomerang(false, Char)
+		wait((DistanceF/100)*2)
+		BV:Destroy()
+
+		local BV2 = Instance.new("BodyVelocity", beam)
+		BV2.MaxForce = Vector3.new(
+			infNum,
+			infNum,
+			infNum
+		)
+		local DistanceR =  math.clamp((mouseaim - hrp.Position).Magnitude, 40, 80)
+		BV2.Velocity = CFrame.new(hrp.Position, mouseaim).LookVector * -DistanceR
+		wait((DistanceR/100)*2)
+		
+		ToggleBoomerang(true, Char)
+		beam:Destroy()
+		
+	end)
+
+	beam.Touched:Connect(function(hit)
+		
+		local char = hit.Parent
+		local hum = char:FindFirstChild("Humanoid")
+		local hrp = char:FindFirstChild("HumanoidRootPart")
+
+		if hum and char.Name ~= plr.Name then
+			if not hum:FindFirstChild(plr.Name) and (char:HasTag(Constants.Tags.PlayerAvatar) 
+				or char:HasTag(Constants.Tags.NPCAI)) then
+	
+				if Hits[char.Name] then
+					return
+				end
+
+				hit.Parent.HumanoidRootPart.CFrame = CFrame.lookAt(hit.Parent.HumanoidRootPart.Position, beam.Position) * CFrame.Angles(0, math.pi, 0)
+				misc.Ragdoll(char, 1.5)
+
+				misc.UpKnockback(hit.Parent.HumanoidRootPart, 35, 65, 0.15, beam)
+				Replicate:FireAllClients("Combat", "HitFX", hit.Parent.HumanoidRootPart, "Blade Hit")
+				Hits[hit.Parent.Name] = true
+				
+				local Exp = plr.Progression:FindFirstChild("EXP")
+				if Exp then
+					Exp.Value += BoomerangXP
+				end
+				
+				local Damage = math.random(BoomerangDamageRange.X, BoomerangDamageRange.Y)
+				hum:TakeDamage(Damage)
+				
+				local color1 = Color3.fromRGB(187, 0, 5)
+				local color2 = Color3.fromRGB(255, 239, 253)
+				beam.Trail.Color = ColorSequence.new(color1, color2)
+				
+				local LastDamage = hum.Parent:FindFirstChild("DamageBy") or Instance.new('ObjectValue', hum.Parent)
+				LastDamage.Name = "DamageBy"
+				LastDamage.Value = plr.Character
+				LastDamage:SetAttribute("Weapon", Constants.Weapons.Boomerang)
+				
+				task.delay(4, function()
+					Hits[char.Name] = nil
+				end)
+				
+			end
+		end
+
+	end)
+
+end
