@@ -15,6 +15,8 @@ local NotificationData = require(RS.Modules.Custom.NotificationData)
 
 local Costs = require(RS.Modules.Custom.Costs)
 
+local DEBUG = false
+
 ---Other scripts
 local IAPService
 local CharacterService
@@ -36,7 +38,7 @@ local PlayerDataService = Knit.CreateService {
 
 
 --------------- Helper ------------------
-local function val(typ:string, parent:Instance, name:StarterGui, default:any)
+local function val(typ:string, parent:Instance, name:string, default:any)
 	if(parent:FindFirstChild(name)) then
 		return
 	end
@@ -50,7 +52,7 @@ local function val(typ:string, parent:Instance, name:StarterGui, default:any)
 	return v
 end
 
-local function getTableLenght(t)
+local function getTableLength(t)
 	local l = 0
 	for i,v in pairs(t) do
 		l += 1
@@ -65,9 +67,14 @@ function CheckDataStoreVersion(playerData :CustomTypes.PlayerDataModel)
 		playerData.LoginData.MyDataStoreVersion.GameDataStoreVersion ~= activeDataStoreVersion.GameDataStoreVersion) then
 
 		playerData = CF:CheckAndUpdatePlayerData(playerData)
-		--print(playerData.LoginData.MyDataStoreVersion.GameDataStoreVersion,"checking active:",activeDataStoreVersion)
+		
+		if DEBUG then
+			print(playerData.LoginData.MyDataStoreVersion.GameDataStoreVersion,"checking active:",activeDataStoreVersion)
+		end
 	end
-	print("Active Data :", playerData, activeDataStoreVersion, CF:GetActiveDataStoreVersion())
+	if DEBUG then
+		print("Active Data :", playerData, activeDataStoreVersion, CF:GetActiveDataStoreVersion())
+	end
 	playerData.LoginData.MyDataStoreVersion = CF:GetActiveDataStoreVersion()
 	
 	return playerData
@@ -98,7 +105,7 @@ function onPlayerAdded(player:Player)
 		QuestDataService:OnPlayerAdded(player, playerData)
 		-- Quest Data
 		
-		--TODO: Task_Id :1086
+		--Karna: Task_Id :1086
 		playerData.AllProfiles[playerData.ActiveProfile].Data.CombatStats.Stamina = 100
 		playerData.AllProfiles[playerData.ActiveProfile].Data.CombatStats.Strength = 100
 		-----
