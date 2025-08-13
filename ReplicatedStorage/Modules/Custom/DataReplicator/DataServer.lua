@@ -67,7 +67,7 @@ type storeSetupDetails = {
 	Name : string, KeySuffix :string, Config : {AutoSave :number}, CurrVersion : number,
 }
 
---TODO: Can also add some other helping methods like Get player's friends, etc basic info.
+--Karna: Can also add some other helping methods like Get player's friends, etc basic info.
 
 
 local RS = game:GetService("ReplicatedStorage")
