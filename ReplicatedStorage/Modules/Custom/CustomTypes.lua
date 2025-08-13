@@ -209,7 +209,7 @@ export type QuestDataType = {
 	Type :string, -- >Runtime< (NPCQuest or DailyQuest)
 	Name :string,
 	Duration :number,
-	Achieved : number, -- TODO: convert to table acc.
+	Achieved : number, -- Karna: convert to table acc.
 	Objective :string,
 	StartTime :boolean,
 	IsClaimed :boolean,
