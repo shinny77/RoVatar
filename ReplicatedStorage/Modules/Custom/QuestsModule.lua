@@ -550,7 +550,8 @@ QuestsModule.Quests = {
 				CompleteMsg = "Good. You’ve felt exhaustion — and now you’ve learned recovery. In the heat of battle, it's not always the strongest who win… but those who know when to pause.",
 				Reward = {
 					[1] = { Type = Constants.QuestRewardType.Gold, Value = 200 },
-					[2] = { Type = Constants.QuestRewardType.XP, Value = 200 },
+					[2] = { Type = Constants.QuestRewardType.LevelUp, Value = 1 },
+					--[2] = { Type = Constants.QuestRewardType.XP, Value = 200 },
 				},
 			},
 			BreathTheSurface = {
@@ -569,7 +570,7 @@ QuestsModule.Quests = {
 				CompleteMsg = "You’ve done well. Few have the courage to dive into the unknown. Remember this feeling — calm, focused, fluid. That is the essence of waterbending.",
 				Reward = {
 					[1] = { Type = Constants.QuestRewardType.Gold, Value = 200 },
-					[2] = { Type = Constants.QuestRewardType.XP, Value = 200 },
+					[2] = { Type = Constants.QuestRewardType.LevelUp, Value = 1 },
 				},
 			},
 		},
@@ -600,7 +601,7 @@ QuestsModule.Quests = {
 				CompleteMsg = "You've reclaimed the Zephyr Monastery! The Air Benders have been driven out, and the skies are calm once more.",
 				Reward = {
 					[1] = { Type = Constants.QuestRewardType.Gold, Value = 300 },
-					[2] = { Type = Constants.QuestRewardType.XP, Value = 400 },
+					[2] = { Type = Constants.QuestRewardType.LevelUp, Value = 1 },
 				},
 			},
 			
@@ -620,7 +621,7 @@ QuestsModule.Quests = {
 				CompleteMsg = "You have safely returned to Sentinel Isle. The elder welcomes you back with gratitude, and the island feels a little more at peace.",
 				Reward = {
 					[1] = { Type = Constants.QuestRewardType.Gold, Value = 500 },
-					[2] = { Type = Constants.QuestRewardType.XP, Value = 500 },
+					[2] = { Type = Constants.QuestRewardType.LevelUp, Value = 1 },
 				},
 			},
 
@@ -639,7 +640,7 @@ QuestsModule.Quests = {
 				CompleteMsg = "You've successfully retrieved the Flower of Life. Its energy pulses with ancient strength — a true symbol of your growing power.",
 				Reward = {
 					[1] = { Type = Constants.QuestRewardType.Gold, Value = 600 },
-					[2] = { Type = Constants.QuestRewardType.XP, Value = 600 },
+					[2] = { Type = Constants.QuestRewardType.LevelUp, Value = 1 },
 				},
 			},
 
@@ -664,7 +665,7 @@ QuestsModule.Quests = {
 				CompleteMsg = "You've conquered the trial. Flame obeys strength, not fear. The path to true mastery continues.",
 				Reward = {
 					[1] = { Type = Constants.QuestRewardType.Gold, Value = 700},
-					[2] = { Type = Constants.QuestRewardType.XP, Value = 700 },
+					[2] = { Type = Constants.QuestRewardType.LevelUp, Value = 1 },
 				},
 			},
 		},
