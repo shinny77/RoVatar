@@ -1,6 +1,6 @@
 -- @ScriptType: ModuleScript
 local RS = game:GetService("ReplicatedStorage")
-
+local Players = game:GetService("Players")
 local Knit = require(RS.Packages.Knit)
 
 local CD = require(RS.Modules.Custom.Constants)
@@ -76,10 +76,31 @@ function NotificationService:ShowMessageToPlayer(player:Player | number, popupDa
 	end
 end
 
+local function CleanUp(player: Player)
+	if not player or not player.UserId then return end
+
+	local uid = player.UserId
+	local stored = NotificationService.playersFunctionHolder[uid]
+	if not stored then return end
+
+	-- Call NoFunc for each caller (pcall to avoid crashing)
+	for callerId, funcs in pairs(stored) do
+		if funcs and type(funcs) == "table" and funcs.NoFunc then
+			local ok, err = pcall(funcs.NoFunc, player, callerId)
+			if not ok then
+				warn("[NotificationService] Error calling NoFunc for", player.Name, "callerId", tostring(callerId), err)
+			end
+		end
+	end
+
+	-- remove the player's entry
+	NotificationService.playersFunctionHolder[uid] = nil
+end
 
 function NotificationService:KnitInit()
 	self.Client.OkYesEvent:Connect(OkYesCallback)
 	self.Client.NoEvent:Connect(NoCallback)
+	Players.PlayerRemoving:Connect(CleanUp)
 end
 
 function NotificationService:KnitStart()
