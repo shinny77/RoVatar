@@ -1161,7 +1161,7 @@ function CommonFunctions:ClaimQuestReward(QData, plrData:CT.PlayerDataModel)
 			QuestData = plrQuestData.DailyQuestData
 
 		else
-			--TODO: Notification ("Something wrong!")
+			--Karna: Notification ("Something wrong!")
 			warn("[Error] [Quest] Quest can't claim, Id Mismatched!")
 			return false
 		end
@@ -1180,7 +1180,7 @@ function CommonFunctions:ClaimQuestReward(QData, plrData:CT.PlayerDataModel)
 			--plrQuestData.LevelQuestData.CompletedQuests[QuestData] = QuestData
 			plrQuestData.LevelQuestData = {}
 		else
-			--TODO: Notification ("Something wrong!")
+			--Karna: Notification ("Something wrong!")
 			warn("[Error] [Quest] Quest can't claim, Id Mismatched!")
 			return false
 		end
@@ -1212,14 +1212,32 @@ function CommonFunctions:ClaimQuestReward(QData, plrData:CT.PlayerDataModel)
 
 	for _, rewardData :CT.QuestsRewardDataType in pairs(Rewards) do
 		if rewardData.Type == CD.QuestRewardType.XP then
-			-- TODO: Level Upgrade Check 
+			-- Karna: Level Upgrade Check 
 			self:UpdateXpInPlayerData(plrData, rewardData.Value)
 		elseif rewardData.Type == CD.QuestRewardType.Gold then
 			self:UpdateGoldInPlayerData(plrData, rewardData.Value)
 		elseif rewardData.Type == CD.QuestRewardType.Gems then
 			self:UpateGemsInPlayerData(plrData, rewardData.Value)
+		else
+			if rewardData.Type == CD.QuestRewardType.LevelUp then
+				local activeProfile :CT.ProfileSlotDataType = self:GetPlayerActiveProfile(plrData)
+				local plrLevel = activeProfile.PlayerLevel
+
+				-- Increase player-Profile wise level
+				do
+					local lvlData :CT.GameLevelData = CD.GameLevelsData[plrLevel]
+
+					--print("leveldata:", lvlData)
+					if lvlData and lvlData ~= {} then
+						local targetXp = lvlData.XpRequired
+
+						self:UpdateXpInPlayerData(plrData, targetXp)
+					end
+				end
+			end
 		end
 	end
+	
 	return true
 end
 
