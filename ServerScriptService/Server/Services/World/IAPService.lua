@@ -40,7 +40,7 @@ end
 
 function PromptPurchase(player, productId, iapType)
 	--LoadingScreenService:ToggleLoadingScreen(player, true, "Processing Purchase Request", true)
-	print(player, productId, iapType)
+	--print(player, productId, iapType)
 	if(iapType == Enum.InfoType.Product) then
 		MarketplaceService:PromptProductPurchase(player, productId)
 		
@@ -81,7 +81,7 @@ end
 ----------------->>>>>>>>> MarketPlace Callbacks <<<<<<<<<<<----------------
 ---->>> For Consumable, Non-Consumables Products
 function PurchaseReceiptCallback(receiptInfo)
-	print("PurchaseReceiptCallback called.......",receiptInfo)
+	--print("PurchaseReceiptCallback called.......",receiptInfo)
 	local userId = receiptInfo.PlayerId
 	local productId = receiptInfo.ProductId
 
@@ -105,16 +105,16 @@ function PurchaseReceiptCallback(receiptInfo)
 end
 
 function OnPurchasePromptClosed(playerId, productId, isPurchased)
-	print("OnPurchasePromptClosed ")
+	--print("OnPurchasePromptClosed ")
 	local plr = game.Players:GetPlayerByUserId(playerId)
 	ResetInProcessPlayer(plr, productId)
 end
 
 ---->>> For Passes Products
 function PromptGamePassPurchaseFinished(player, purchasedPassID, purchaseSuccess,...)
-	print("PromptGamePassPurchaseFinished  closed.....", player, purchasedPassID, purchaseSuccess, ...)
+	--print("PromptGamePassPurchaseFinished  closed.....", player, purchasedPassID, purchaseSuccess, ...)
 	if purchaseSuccess  then
-		print(player.Name .. " purchased the Pass with ID",purchasedPassID)
+		--print(player.Name .. " purchased the Pass with ID",purchasedPassID)
 		local fun = GetProductFunction(player.UserId, purchasedPassID)
 		fun(player, purchasedPassID)
 	else
@@ -124,9 +124,9 @@ function PromptGamePassPurchaseFinished(player, purchasedPassID, purchaseSuccess
 end
 
 function OnSubscriptionFinished(player, purchasedPassID, purchaseSuccess)
-	print("OnSubscriptionFinished .....")
+	--print("OnSubscriptionFinished .....")
 	if purchaseSuccess then
-		print(player.Name .. " purchased the Pass with ID",purchasedPassID)
+		--print(player.Name .. " purchased the Pass with ID",purchasedPassID)
 		local fun = GetProductFunction(player.UserId, purchasedPassID)
 		fun(player, purchasedPassID)
 	else
@@ -136,13 +136,13 @@ function OnSubscriptionFinished(player, purchasedPassID, purchaseSuccess)
 end
 
 local function onPromptPurchaseFinished(player, assetId, isPurchased)
-	print("onPromptPurchaseFinished .....",assetId, isPurchased)
+	--print("onPromptPurchaseFinished .....",assetId, isPurchased)
 	if isPurchased then
-		print(player.Name, "bought an item with AssetID:", assetId)
+		--print(player.Name, "bought an item with AssetID:", assetId)
 		local fun = GetProductFunction(player.UserId, assetId)
 		fun(player, assetId)
 	else
-		print(player.Name, "didn't buy an item with AssetID:", assetId)
+		--print(player.Name, "didn't buy an item with AssetID:", assetId)
 	end
 	ResetInProcessPlayer(player, assetId)
 end
@@ -167,7 +167,7 @@ function IsSubscriptionActive(player:Player, productId)
 	end
 
 	if subStatus["IsSubscribed"] then
-		print(player.Name .. " is subscribed with " .. productId)
+		--print(player.Name .. " is subscribed with " .. productId)
 		IsSubs = true
 	end
 		
@@ -189,7 +189,7 @@ function IsGamePassPurchased(player:Player, productId)
 	end
 
 	if hasPass then
-		print(player.Name .. " owns the Pass with ID " .. productId)
+		--print(player.Name .. " owns the Pass with ID " .. productId)
 	end
 		
 	return hasPass
@@ -215,7 +215,7 @@ end
 
 -------- Client
 function IAPService.Client:PurchaseItem(player, productData: CT.ItemDataType)
-	print("[IAP Manager] Received request for item purchase:", productData)
+	--print("[IAP Manager] Received request for item purchase:", productData)
 	assert(productData or productData.Id, "Require full productData to initiate the IAP.")
 	--if(productData == nil or productData.Id == nil) then
 	--	warn("Require full productData to initiate the IAP.")
@@ -223,7 +223,7 @@ function IAPService.Client:PurchaseItem(player, productData: CT.ItemDataType)
 	--end
 	
 	local OnSuccessFun = function(reciept, Plr)
-		print(" Reciept on purchase completed : ", reciept, Plr)
+		--print(" Reciept on purchase completed : ", reciept, Plr)
 		IAPService.OnPurchaseCompleted:Fire(player, productData)
 		IAPService.Client.OnPurchaseCompleted:Fire(player, productData)
 	end
@@ -244,13 +244,13 @@ function IAPService.Client:PurchaseItem(player, productData: CT.ItemDataType)
 end
 
 function IAPService.Client:GetProductInfo(player:Player, productId:number, pType:Enum.InfoType)
-	print("[IAPService] Received request to fetch product info:", productId)
+	--print("[IAPService] Received request to fetch product info:", productId)
 	
 	local succ, err = pcall(function()
 		return MarketplaceService:GetProductInfo(productId, pType)
 	end)
 	
-	print("Fetching result:", succ, err)
+	--print("Fetching result:", succ, err)
 	
 	return err
 end
