@@ -608,7 +608,6 @@ return{
 				},
 			},
 
-
 			[2] = {
 				Title = "The ocean holds more than waves and current. Beneath its surface lie the forgotten memories of our people.",
 				Options = {
