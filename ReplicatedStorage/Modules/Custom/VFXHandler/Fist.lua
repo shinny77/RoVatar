@@ -351,7 +351,7 @@ return function(plr :Player, action, isHoldingSpace)
 		end
 
 	elseif action == "Block" and Humanoid.Health > 0 then
-		if not M1Debounce.Value then --and not Disabled then --:TODO: (TASK_ID) : 1018
+		if not M1Debounce.Value then --and not Disabled then --:Karna: (TASK_ID) : 1018
 			isBlocking.Value = true
 		end
 		
