@@ -19,9 +19,9 @@ return {
 	
 	--Usage Min Level [[JOHN: you can adjust Required Level From here]]
 	AirKickLvl = 5,
-	FireDropKickLvl = 10,--5,
-	EarthStompLvl = 15,--5,
-	WaterStanceLvl = 20,--5,
+	FireDropKickLvl = 8,--5,
+	EarthStompLvl = 11,--5,
+	WaterStanceLvl = 12,--5,
 
 	--Usage Stamina Costs
 	FistStamina = 5,--25,
