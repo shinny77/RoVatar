@@ -44,7 +44,7 @@ end
 
 ---------------------------------------------------------->  Public Methods  <-------------------------------------------------------
 
-function NotificationService:ShowMessageToPlayer(player:Player & number, popupData:CT.PopupDataType, callerId,  OkYesFunc :() -> (), NoFunc :() -> ())
+function NotificationService:ShowMessageToPlayer(player:Player | number, popupData:CT.PopupDataType, callerId,  OkYesFunc :() -> (), NoFunc :() -> ())
 	if(popupData == nil) then
 		--warn("MessageData cannot be empty. What to send lol:(")
 		return
