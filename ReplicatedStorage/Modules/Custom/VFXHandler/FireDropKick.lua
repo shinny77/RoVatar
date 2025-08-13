@@ -169,7 +169,7 @@ return function(plr, direction, mouseaim)
 		end
 	end)
 	
-	task.delay(4, function()
+	task.delay(2.5, function()
 		
 		h:Destroy()
 	end)
