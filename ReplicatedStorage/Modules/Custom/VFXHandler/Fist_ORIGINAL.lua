@@ -51,7 +51,7 @@ return function(plr :Player, action, isHoldingSpace)
 		
 		if not M1Debounce.Value and not isBlocking.Value and not Disabled then
 
-			plr.CombatStats.Stamina.Value -= FistStamina
+			--plr.CombatStats.Stamina.Value -= FistStamina
 			
 			local hit = {}
 			M1Debounce.Value = true
@@ -275,7 +275,7 @@ return function(plr :Player, action, isHoldingSpace)
 				Combo.Value = 2
 				doingCombo.Value = 1
 
-				task.delay(1.5, function()
+				task.delay(1, function()
 					if Combo.Value == 2 then
 						Combo.Value = 1
 						doingCombo.Value = 0
@@ -285,7 +285,7 @@ return function(plr :Player, action, isHoldingSpace)
 				Combo.Value = 3
 				doingCombo.Value = 2
 
-				task.delay(1.5, function()
+				task.delay(1, function()
 					if Combo.Value == 3 then
 						Combo.Value = 1
 						doingCombo.Value = 0
@@ -296,7 +296,7 @@ return function(plr :Player, action, isHoldingSpace)
 				Combo.Value = 4
 				doingCombo.Value = 3
 
-				task.delay(1.5, function()
+				task.delay(1, function()
 					if Combo.Value == 4 then
 						Combo.Value = 1
 						doingCombo.Value = 0
@@ -306,7 +306,7 @@ return function(plr :Player, action, isHoldingSpace)
 				Combo.Value = 5
 				doingCombo.Value = 4
 
-				task.delay(1.5, function()
+				task.delay(1, function()
 					if Combo.Value == 5 then
 						Combo.Value = 1
 						doingCombo.Value = 0
@@ -316,7 +316,7 @@ return function(plr :Player, action, isHoldingSpace)
 				Combo.Value = 6
 				doingCombo.Value = 5
 
-				task.delay(1.5, function()
+				task.delay(1, function()
 					if Combo.Value == 5 then
 						Combo.Value = 1
 						doingCombo.Value = 0
@@ -337,7 +337,7 @@ return function(plr :Player, action, isHoldingSpace)
 
 			game.Debris:AddItem(SFXHandler:PlayAlong(Constants.SFXs.Fist_Swing, Char), 3)
 
-			Animations[doingCombo.Value]:Play(.05, 0.8, 1.4)
+			Animations[doingCombo.Value]:Play(.05, 0.8, 2)
 			task.delay(.15, function()
 				createHitbox()
 			end)
@@ -351,7 +351,7 @@ return function(plr :Player, action, isHoldingSpace)
 		end
 
 	elseif action == "Block" and Humanoid.Health > 0 then
-		if not M1Debounce.Value then --and not Disabled then --:TODO: (TASK_ID) : 1018
+		if not M1Debounce.Value then --and not Disabled then --:Karna: (TASK_ID) : 1018
 			isBlocking.Value = true
 		end
 		
