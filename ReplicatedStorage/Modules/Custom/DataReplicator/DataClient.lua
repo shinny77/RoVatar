@@ -344,7 +344,7 @@ function DataClient:ListenSpecChange(path:string, fn :(any, any, any) -> ()) :RB
 			if(orgVal) then
 				local oldVal = CF:ValidatePath(oldData, path)
 				
-				--TODO: MOST IMPORTANT!!! [ >BUG< ]
+				--Karna: MOST IMPORTANT!!! [ >BUG< ]
 				
 				local IsSame = CF:MatchTables(orgVal, oldVal) -- Same -> TRUE
 				
@@ -451,7 +451,7 @@ function DataClient:CheckPing()
 	if(self._pingFailed >= self._config.MaxPingFailedLimit) then
 		warn("Reached to MaxPingFailedLimit. Shutting the Client-Side Store :",self._storeName)
 		self._connected = false
-		--TODO: Shut the client-store
+		--Karna: Shut the client-store
 	end
 end
 
