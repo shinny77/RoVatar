@@ -344,7 +344,7 @@ function DataClient:ListenSpecChange(path:string, fn :(any, any, any) -> ()) :RB
 			if(orgVal) then
 				local oldVal = CF:ValidatePath(oldData, path)
 				
-				--Karna: MOST IMPORTANT!!! [ >BUG< ]
+				--Karna: MOST IMPORTANT!!! [ >B|U|G< ]
 				
 				local IsSame = CF:MatchTables(orgVal, oldVal) -- Same -> TRUE
 				
