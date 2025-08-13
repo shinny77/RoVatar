@@ -1,5 +1,5 @@
 -- @ScriptType: ModuleScript
--- TODO: When Promise is on Wally, remove this in favor of just `script.Parent.Parent:FindFirstChild("Promise")`.
+-- Karna: When Promise is on Wally, remove this in favor of just `script.Parent.Parent:FindFirstChild("Promise")`.
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
