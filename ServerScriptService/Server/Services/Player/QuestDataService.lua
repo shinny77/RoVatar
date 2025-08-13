@@ -138,7 +138,7 @@ end
 local function DailyQuest(plrData:CT.PlayerDataModel)
 	local activeProfile = CF:GetPlayerActiveProfile(plrData)
 	if not IsSameDay(activeProfile.LastUpdatedOn) or not activeProfile.Data.Quests.DailyQuestData.Id then
-		--TODO: * Check for old quest if Completed and not claimed then credit reward
+		--Karna: * Check for old quest if Completed and not claimed then credit reward
 
 		--* Assign Daily Quest to player
 		local QuestData : CT.QuestDataType = GetQuest()
@@ -159,7 +159,7 @@ local function RefreshDailyQuest(player)
 		DailyQuest(plrData)
 
 		_G.PlayerDataStore:UpdateData(player, plrData)
-		-- TODO: Refresh Quest GUI Event....
+		-- Karna: Refresh Quest GUI Event....
 	end)
 
 end
