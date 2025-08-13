@@ -39,7 +39,7 @@ isBlocking.Changed:Connect(function()
 	if isBlocking.Value then
 		blockingIdle = hum:LoadAnimation(script.BlockingIdle)
 		preblock = hum:LoadAnimation(script.PreBlock)
-		if not isBlockBroken then --and not char:FindFirstChild("Disabled") then --:TODO: (TASK_ID) : 1018
+		if not isBlockBroken then --and not char:FindFirstChild("Disabled") then --:Karna: (TASK_ID) : 1018
 			preblock:Play()
 			blockingIdle:Play()
 			
