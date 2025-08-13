@@ -1332,6 +1332,7 @@ table.freeze(Constants.QuestDataStoreVersions)
 Constants.QuestRewardType = {
 	Gold = "Gold",
 	Gems = "Gems",
+	LevelUp = "LevelUp",
 	XP = "XP",
 }
 table.freeze(Constants.QuestRewardType)
