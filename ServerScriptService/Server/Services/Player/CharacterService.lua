@@ -147,7 +147,7 @@ local function SetupConstraints(char)
 	char.ChildAdded:Connect(function(Object)
 		if Object.Name == "Disabled" then
 			--hum.WalkSpeed = 4
-			--hum.JumpPower = 6 --:TODO: (TASK_ID) : 1047
+			--hum.JumpPower = 6 --:Karna: (TASK_ID) : 1047
 			--canDash.Value = false
 			--canRun.Value = false
 		elseif Object.Name == "Ragdoll" then	
